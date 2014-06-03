@@ -5,7 +5,7 @@ use Foolz\Plugin\Event;
 
 class HHVM_UploadWebM
 {
-    public static function run()
+    public function run()
     {
         Event::forge('Foolz\Plugin\Plugin::execute.foolz/foolfuuka-plugin-upload-webm')
             ->setCall(function ($result) {
