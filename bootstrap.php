@@ -57,29 +57,29 @@ class HHVM_UploadWebM
                         }
                     });
 
-                $auth = $context->getService('auth');
-                $pref = $context->getService('preferences');
+                Event::forge('Foolz\Foolfuuka\Model\Media::upload.config')
+                    ->setCall(function ($object) use ($context) {
+                        $auth = $context->getService('auth');
+                        $pref = $context->getService('preferences');
 
-                if (
-                    $auth->hasAccess('maccess.admin')
-                    || ($auth->hasAccess('maccess.mod') && $pref->get('foolfuuka.plugins.upload_webm.allow_mods'))
-                    || $pref->get('foolfuuka.plugins.upload_webm.allow_users')
-                ) {
-                    Event::forge('Foolz\Foolfuuka\Model\Media::upload.config')
-                        ->setCall(function ($object) use ($context) {
+                        if (
+                            $auth->hasAccess('maccess.admin')
+                            || ($auth->hasAccess('maccess.mod') && $pref->get('foolfuuka.plugins.upload_webm.allow_mods'))
+                            || $pref->get('foolfuuka.plugins.upload_webm.allow_users')
+                        ) {
                             $context->getService('foolfuuka-plugin.upload_webm')->updateConfig($object);
-                        });
+                        }
+                    });
 
-                    Event::forge('Foolz\Foolfuuka\Model\Media::insert.result.media_data')
-                        ->setCall(function ($object) use ($context) {
-                            $context->getService('foolfuuka-plugin.upload_webm')->processMedia($object);
-                        });
+                Event::forge('Foolz\Foolfuuka\Model\Media::insert.result.media_data')
+                    ->setCall(function ($object) use ($context) {
+                        $context->getService('foolfuuka-plugin.upload_webm')->processMedia($object);
+                    });
 
-                    Event::forge('Foolz\Foolfuuka\Model\Media::insert.result.create_thumbnail')
-                        ->setCall(function ($object) use ($context) {
-                            $context->getService('foolfuuka-plugin.upload_webm')->processThumb($object);
-                        });
-                }
+                Event::forge('Foolz\Foolfuuka\Model\Media::insert.result.create_thumbnail')
+                    ->setCall(function ($object) use ($context) {
+                        $context->getService('foolfuuka-plugin.upload_webm')->processThumb($object);
+                    });
             });
     }
 }
