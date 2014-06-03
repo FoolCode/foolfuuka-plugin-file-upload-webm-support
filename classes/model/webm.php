@@ -2,9 +2,25 @@
 
 namespace Foolz\Foolfuuka\Plugins\UploadWebM\Model;
 
-class WebM
+use Foolz\Foolframe\Model\Context;
+use Foolz\Foolframe\Model\Model;
+use Foolz\Foolframe\Model\Preferences;
+
+class WebM extends Model
 {
-    public static function updateConfig($object)
+    /**
+     * @var Preferences
+     */
+    protected $preferences;
+
+    public function __construct(Context $context)
+    {
+        parent::__construct($context);
+
+        $this->preferences = $context->getService('preferences');
+    }
+
+    public function updateConfig($object)
     {
         $extensions = $object->getParam('ext_whitelist');
         $mime_types = $object->getParam('mime_whitelist');
@@ -16,17 +32,19 @@ class WebM
         $object->setParam('mime_whitelist', $mime_types);
     }
 
-    public static function processMedia($object)
+    public function processMedia($object)
     {
         if ($object->getParam('dimensions') === false && $object->getParam('file')->getMimeType() == 'video/webm') {
-            exec('/usr/local/bin/ffmpeg -i '.$object->getParam('path').' -vframes 1 '.$object->getParam('path').'.png');
+            if ($this->preferences->get('foolfuuka.plugins.upload_webm.binary_path')) {
+                exec($this->preferences->get('foolfuuka.plugins.upload_webm.binary_path').' -i '.$object->getParam('path').' -vframes 1 '.$object->getParam('path').'.png');
 
-            $object->setParam('dimensions', getimagesize($object->getParam('path').'.png'));
-            $object->setParam('preview_orig', $object->getParam('time').'s.png');
+                $object->setParam('dimensions', getimagesize($object->getParam('path').'.png'));
+                $object->setParam('preview_orig', $object->getParam('time').'s.png');
+            }
         }
     }
 
-    public static function processThumb($object)
+    public function processThumb($object)
     {
         if ($object->getParam('media')->getMimeType() == 'video/webm') {
             exec($object->getParam('exec') .
