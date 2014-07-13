@@ -29,7 +29,14 @@ class WebM extends \Foolz\Foolframe\Controller\Admin
             'foolfuuka.plugins.upload_webm.binary_path' => [
                 'preferences' => true,
                 'type' => 'input',
-                'label' => _i('The path to ffmpeg/avconv binary.'),
+                'label' => _i('The path to the ffmpeg/avconv binary.'),
+                'class' => 'span3',
+                'validation' => [new Trim()]
+            ],
+            'foolfuuka.plugins.upload_webm.ffprobe_path' => [
+                'preferences' => true,
+                'type' => 'input',
+                'label' => _i('The path to the ffprobe binary.'),
                 'class' => 'span3',
                 'validation' => [new Trim()]
             ],
@@ -38,10 +45,20 @@ class WebM extends \Foolz\Foolframe\Controller\Admin
                 'type' => 'checkbox',
                 'help' => _i('Allow Moderators to upload WebM files.')
             ],
+            'foolfuuka.plugins.upload_webm.allow_mods_audio' => [
+                'preferences' => true,
+                'type' => 'checkbox',
+                'help' => _i('Allow Moderators to upload WebM files with audio streams.')
+            ],
             'foolfuuka.plugins.upload_webm.allow_users' => [
                 'preferences' => true,
                 'type' => 'checkbox',
                 'help' => _i('Allow Users to upload WebM files.')
+            ],
+            'foolfuuka.plugins.upload_webm.allow_users_audio' => [
+                'preferences' => true,
+                'type' => 'checkbox',
+                'help' => _i('Allow Moderators to upload WebM files with audio streams.')
             ],
             'submit' => [
                 'type' => 'submit',

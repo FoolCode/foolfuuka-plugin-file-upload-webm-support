@@ -73,7 +73,10 @@ class HHVM_UploadWebM
 
                 Event::forge('Foolz\Foolfuuka\Model\Media::insert.result.media_data')
                     ->setCall(function ($object) use ($context) {
-                        $context->getService('foolfuuka-plugin.upload_webm')->processMedia($object);
+                        $audio = $auth->hasAccess('maccess.admin')
+                            || ($auth->hasAccess('maccess.mod') && $pref->get('foolfuuka.plugins.upload_webm.allow_mods_audio'))
+                            || $pref->get('foolfuuka.plguins.upload_webm.allow_users_audio');
+                        $context->getService('foolfuuka-plugin.upload_webm')->processMedia($object, $audio);
                     });
 
                 Event::forge('Foolz\Foolfuuka\Model\Media::insert.result.create_thumbnail')
