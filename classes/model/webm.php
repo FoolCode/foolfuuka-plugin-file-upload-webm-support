@@ -35,7 +35,7 @@ class WebM extends Model
     public function processMedia($object, $audio)
     {
         if ($audio == false) {
-            $video = json_decode(shell_exec('ffprobe -v quiet -print_format json -show_streams -select_streams a '.$object->getParam('path')));
+            $video = json_decode(shell_exec($this->preferences->get('foolfuuka.plugins.upload_webm.ffprobe_path').' -v quiet -print_format json -show_streams -select_streams a '.$object->getParam('path')));
             if (isset($video->streams) && count($video->streams)) {
                 throw new \Foolz\Foolfuuka\Model\MediaInsertInvalidFormatException(_i('The file you uploaded contains an audio stream which is not allowed.'));
             }
