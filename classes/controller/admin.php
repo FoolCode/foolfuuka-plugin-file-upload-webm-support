@@ -58,7 +58,7 @@ class WebM extends \Foolz\Foolframe\Controller\Admin
             'foolfuuka.plugins.upload_webm.allow_users_audio' => [
                 'preferences' => true,
                 'type' => 'checkbox',
-                'help' => _i('Allow Moderators to upload WebM files with audio streams.')
+                'help' => _i('Allow Users to upload WebM files with audio streams.')
             ],
             'submit' => [
                 'type' => 'submit',
