@@ -6,13 +6,13 @@ use Foolz\Foolframe\Model\Validation\ActiveConstraint\Trim;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
-class WebM extends \Foolz\Foolframe\Controller\Admin
+class FileUploadWebMSupport extends \Foolz\Foolframe\Controller\Admin
 {
     public function before()
     {
         parent::before();
 
-        $this->param_manager->setParam('controller_title', 'WebM Preferences');
+        $this->param_manager->setParam('controller_title', 'File Upload: WebM Support');
     }
 
     public function security()
@@ -26,36 +26,36 @@ class WebM extends \Foolz\Foolframe\Controller\Admin
             'open' => [
                 'type' => 'open'
             ],
-            'foolfuuka.plugins.upload_webm.binary_path' => [
+            'foolfuuka.plugins.file_upload_webm_support.path_binary' => [
                 'preferences' => true,
                 'type' => 'input',
                 'label' => _i('The path to the ffmpeg/avconv binary.'),
                 'class' => 'span3',
                 'validation' => [new Trim()]
             ],
-            'foolfuuka.plugins.upload_webm.ffprobe_path' => [
+            'foolfuuka.plugins.file_upload_webm_support.path_ffprobe' => [
                 'preferences' => true,
                 'type' => 'input',
                 'label' => _i('The path to the ffprobe binary.'),
                 'class' => 'span3',
                 'validation' => [new Trim()]
             ],
-            'foolfuuka.plugins.upload_webm.allow_mods' => [
+            'foolfuuka.plugins.file_upload_webm_support.allow_mods' => [
                 'preferences' => true,
                 'type' => 'checkbox',
                 'help' => _i('Allow Moderators to upload WebM files.')
             ],
-            'foolfuuka.plugins.upload_webm.allow_mods_audio' => [
+            'foolfuuka.plugins.file_upload_webm_support.allow_mods_audio' => [
                 'preferences' => true,
                 'type' => 'checkbox',
                 'help' => _i('Allow Moderators to upload WebM files with audio streams.')
             ],
-            'foolfuuka.plugins.upload_webm.allow_users' => [
+            'foolfuuka.plugins.file_upload_webm_support.allow_users' => [
                 'preferences' => true,
                 'type' => 'checkbox',
                 'help' => _i('Allow Users to upload WebM files.')
             ],
-            'foolfuuka.plugins.upload_webm.allow_users_audio' => [
+            'foolfuuka.plugins.file_upload_webm_support.allow_users_audio' => [
                 'preferences' => true,
                 'type' => 'checkbox',
                 'help' => _i('Allow Users to upload WebM files with audio streams.')
