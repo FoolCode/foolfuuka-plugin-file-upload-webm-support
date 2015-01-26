@@ -1,6 +1,6 @@
 <?php
 
-use Foolz\Foolframe\Model\Context;
+use Foolz\FoolFrame\Model\Context;
 use Foolz\Plugin\Event;
 
 class HHVM_FileUploadWebMSupport
@@ -15,12 +15,12 @@ class HHVM_FileUploadWebMSupport
                 /** @var Autoloader $autoloader */
                 $autoloader = $context->getService('autoloader');
                 $autoloader->addClassMap([
-                    'Foolz\Foolframe\Controller\Admin\Plugins\FileUploadWebMSupport' => __DIR__.'/classes/controller/admin.php',
-                    'Foolz\Foolfuuka\Plugins\FileUpload\Model\WebM' => __DIR__.'/classes/model/upload.php'
+                    'Foolz\FoolFrame\Controller\Admin\Plugins\FileUploadWebMSupport' => __DIR__.'/classes/controller/admin.php',
+                    'Foolz\FoolFuuka\Plugins\FileUpload\Model\WebM' => __DIR__.'/classes/model/upload.php'
                 ]);
 
                 $context->getContainer()
-                    ->register('foolfuuka-plugin.file_upload_webm_support', 'Foolz\Foolfuuka\Plugins\FileUpload\Model\WebM')
+                    ->register('foolfuuka-plugin.file_upload_webm_support', 'Foolz\FoolFuuka\Plugins\FileUpload\Model\WebM')
                     ->addArgument($context);
 
                 Event::forge('Foolz\FoolFrame\Model\Context::handleWeb#obj.afterAuth')
@@ -32,7 +32,7 @@ class HHVM_FileUploadWebMSupport
                                     '/admin/plugins/file_upload_webm/{_suffix}',
                                     [
                                         '_suffix' => 'manage',
-                                        '_controller' => 'Foolz\Foolframe\Controller\Admin\Plugins\FileUploadWebMSupport::manage'
+                                        '_controller' => 'Foolz\FoolFrame\Controller\Admin\Plugins\FileUploadWebMSupport::manage'
                                     ],
                                     [
                                         '_suffix' => '.*'

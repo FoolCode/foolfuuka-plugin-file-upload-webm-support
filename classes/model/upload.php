@@ -1,10 +1,10 @@
 <?php
 
-namespace Foolz\Foolfuuka\Plugins\FileUpload\Model;
+namespace Foolz\FoolFuuka\Plugins\FileUpload\Model;
 
-use Foolz\Foolframe\Model\Context;
-use Foolz\Foolframe\Model\Model;
-use Foolz\Foolframe\Model\Preferences;
+use Foolz\FoolFrame\Model\Context;
+use Foolz\FoolFrame\Model\Model;
+use Foolz\FoolFrame\Model\Preferences;
 
 class WebM extends Model
 {
@@ -37,7 +37,7 @@ class WebM extends Model
         if ($audio == false) {
             $video = json_decode(shell_exec($this->preferences->get('foolfuuka.plugins.file_upload_webm_support.path_ffprobe').' -v quiet -print_format json -show_streams -select_streams a '.$object->getParam('path')));
             if (isset($video->streams) && count($video->streams)) {
-                throw new \Foolz\Foolfuuka\Model\MediaInsertInvalidFormatException(_i('The file you uploaded contains an audio stream which is not allowed.'));
+                throw new \Foolz\FoolFuuka\Model\MediaInsertInvalidFormatException(_i('The file you uploaded contains an audio stream which is not allowed.'));
             }
         }
 
