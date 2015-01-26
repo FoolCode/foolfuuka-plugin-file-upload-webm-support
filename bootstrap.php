@@ -23,7 +23,7 @@ class HHVM_FileUploadWebMSupport
                     ->register('foolfuuka-plugin.file_upload_webm_support', 'Foolz\Foolfuuka\Plugins\FileUpload\Model\WebM')
                     ->addArgument($context);
 
-                Event::forge('Foolz\Foolframe\Model\Context::handleWeb#obj.afterAuth')
+                Event::forge('Foolz\FoolFrame\Model\Context::handleWeb#obj.afterAuth')
                     ->setCall(function ($object) use ($context) {
                         if ($context->getService('auth')->hasAccess('maccess.admin')) {
                             $context->getRouteCollection()->add(
@@ -40,7 +40,7 @@ class HHVM_FileUploadWebMSupport
                                 )
                             );
 
-                            Event::forge('Foolz\Foolframe\Controller\Admin::before#var.sidebar')
+                            Event::forge('Foolz\FoolFrame\Controller\Admin::before#var.sidebar')
                                 ->setCall(function ($object) {
                                     $sidebar = $object->getParam('sidebar');
                                     $sidebar[]['plugins'] = [
@@ -57,7 +57,7 @@ class HHVM_FileUploadWebMSupport
                         }
                     });
 
-                Event::forge('Foolz\Foolfuuka\Model\MediaFactory::forgeFromUpload#var.config')
+                Event::forge('Foolz\FoolFuuka\Model\MediaFactory::forgeFromUpload#var.config')
                     ->setCall(function ($object) use ($context) {
                         $auth = $context->getService('auth');
                         $pref = $context->getService('preferences');
@@ -71,7 +71,7 @@ class HHVM_FileUploadWebMSupport
                         }
                     });
 
-                Event::forge('Foolz\Foolfuuka\Model\Media::insert#var.media')
+                Event::forge('Foolz\FoolFuuka\Model\Media::insert#var.media')
                     ->setCall(function ($object) use ($context) {
                         $auth = $context->getService('auth');
                         $pref = $context->getService('preferences');
@@ -83,7 +83,7 @@ class HHVM_FileUploadWebMSupport
                         $context->getService('foolfuuka-plugin.file_upload_webm_support')->processMedia($object, $audio);
                     });
 
-                Event::forge('Foolz\Foolfuuka\Model\Media::insert#exec.createThumbnail')
+                Event::forge('Foolz\FoolFuuka\Model\Media::insert#exec.createThumbnail')
                     ->setCall(function ($object) use ($context) {
                         $context->getService('foolfuuka-plugin.file_upload_webm_support')->processThumb($object);
                     });
